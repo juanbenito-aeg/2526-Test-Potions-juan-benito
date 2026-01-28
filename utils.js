@@ -89,61 +89,6 @@ const getEssenceValueFrom = (ingredients) => {
   }
 };
 
-const getIngredientEffectAttribute = (ingredient) => {
-  let ingredientEffectAttribute;
-
-  Attributes.forEach((attribute) => {
-    if (ingredient.effects[0].includes(attribute)) {
-      ingredientEffectAttribute = attribute;
-    }
-  });
-
-  return ingredientEffectAttribute;
-};
-
-const getAntidoteOrPoisonValue = (ingredients, isPoison) => {
-  const values = ingredients.map((ingredient) => {
-    const effectType = getEffectTypeFromIngredient(ingredient);
-
-    let value;
-
-    switch (effectType) {
-      case Modifier.LEAST: {
-        value = 1;
-        break;
-      }
-
-      case Modifier.LESSER: {
-        value = 2;
-        break;
-      }
-
-      case Modifier.GREATER: {
-        value = 4;
-        break;
-      }
-
-      default: {
-        value = 3;
-        break;
-      }
-    }
-
-    return value;
-  });
-
-  let potionValue = values.reduce(
-    (currentPotionValue, value) => currentPotionValue + value,
-    0,
-  );
-
-  if (isPoison) {
-    potionValue = -potionValue;
-  }
-
-  return potionValue;
-};
-
 module.exports = {
   getEssenceValueFrom,
   Attributes,
@@ -151,6 +96,4 @@ module.exports = {
   Modifier,
   PotionType,
   getEffectTypeFromIngredient,
-  getIngredientEffectAttribute,
-  getAntidoteOrPoisonValue,
 };

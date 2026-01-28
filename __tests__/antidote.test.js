@@ -1,9 +1,7 @@
+const { Antidote } = require("../antidote");
 const { Cauldron } = require("../cauldron");
-const {
-  getIngredientEffectAttribute,
-  PotionType,
-  getAntidoteOrPoisonValue,
-} = require("../utils");
+const { Potion } = require("../potion");
+const { PotionType } = require("../utils");
 
 describe("Cuando todos los ingredientes llevan el efecto de tipo “Restore”.", () => {
   describe("Cuando todos los ingredientes tienen el mismo atributo (INT, DEX…)", () => {
@@ -33,19 +31,19 @@ describe("Cuando todos los ingredientes llevan el efecto de tipo “Restore”."
     const potion = Cauldron.createPotion(ingredients);
 
     it("El nombre deberá ser el correspondiente. Antidote of + “", () => {
-      const ingredientsEffectAttribute = getIngredientEffectAttribute(
+      const attribute = Cauldron.getEffectAttributeFromIngredients(
         ingredients[0],
       );
 
-      expect(potion.name).toBe(
-        `Antidote of restore ${ingredientsEffectAttribute}`,
-      );
+      expect(potion.name).toBe(`Antidote of restore ${attribute}`);
     });
 
     it("El value será positivo e igual a la suma de los valores según la tabla de modificadores.", () => {
       expect(potion.value).toBeGreaterThan(0);
 
-      const antidoteValue = getAntidoteOrPoisonValue(ingredients);
+      const antidoteValue = Antidote.calculateValue(
+        Potion.getNumIngredientsOfEachModifier(ingredients),
+      );
 
       expect(potion.value).toBe(antidoteValue);
     });
