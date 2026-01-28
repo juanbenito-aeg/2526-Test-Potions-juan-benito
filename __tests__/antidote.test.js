@@ -1,9 +1,8 @@
 const { Cauldron } = require("../cauldron");
 const {
-  getEffectTypeFromIngredient,
-  Modifier,
   getIngredientEffectAttribute,
   PotionType,
+  getAntidoteOrPoisonValue,
 } = require("../utils");
 
 describe("Cuando todos los ingredientes llevan el efecto de tipo “Restore”.", () => {
@@ -46,42 +45,9 @@ describe("Cuando todos los ingredientes llevan el efecto de tipo “Restore”."
     it("El value será positivo e igual a la suma de los valores según la tabla de modificadores.", () => {
       expect(potion.value).toBeGreaterThan(0);
 
-      const values = ingredients.map((ingredient) => {
-        const effectType = getEffectTypeFromIngredient(ingredient);
+      const antidoteValue = getAntidoteOrPoisonValue(ingredients);
 
-        let value;
-
-        switch (effectType) {
-          case Modifier.LEAST: {
-            value = 1;
-            break;
-          }
-
-          case Modifier.LESSER: {
-            value = 2;
-            break;
-          }
-
-          case Modifier.GREATER: {
-            value = 4;
-            break;
-          }
-
-          default: {
-            value = 3;
-            break;
-          }
-        }
-
-        return value;
-      });
-
-      const potionValue = values.reduce(
-        (currentPotionValue, value) => currentPotionValue + value,
-        0,
-      );
-
-      expect(potion.value).toBe(potionValue);
+      expect(potion.value).toBe(antidoteValue);
     });
 
     it("El tipo será “antidote”", () => {
