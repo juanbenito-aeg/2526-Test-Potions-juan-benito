@@ -433,12 +433,13 @@ describe("Cuando alguno de los efectos de ingredientes no lleva el nombre “Cal
       type: "ingredient",
     },
     {
-      _id: "6702b51d76863c206a48cd32",
-      name: "Stonefruit",
-      description: "A hard fruit that temporarily weakens strength.",
-      value: 55,
-      effects: ["setback_strength"],
-      image: "/images/ingredients/setback/setback_10.webp",
+      _id: "6702b53d76863c206a48cd41",
+      name: "Lunatic's Thorn",
+      description:
+        "A thorny herb that induces a subtle but lasting sense of insanity.",
+      value: 7,
+      effects: ["least_frenzy"],
+      image: "/images/ingredients/frenzy/frenzy_4.webp",
       type: "ingredient",
     },
   ];
