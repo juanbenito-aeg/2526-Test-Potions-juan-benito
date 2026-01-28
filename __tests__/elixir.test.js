@@ -105,6 +105,20 @@ describe("Cuando los efectos de ingredientes asociados llevarán los nombres: �
     });
 
     describe("Cuando todos los efectos son de tipo normal", () => {
+      const willowSpark = {
+        _id: "6702b4f876863c206a48cd1f",
+        name: "Willow Spark",
+        description: "A crackling herb that boosts constitution.",
+        value: 45,
+        effects: ["boost_constitution"],
+        image: "/images/ingredients/boost/boost_12.webp",
+        type: "ingredient",
+      };
+
+      const ingredients = [willowSpark, willowSpark];
+
+      const potion = Cauldron.createPotion(ingredients);
+
       it("El nombre de la poción será: Attribute + elixir", () => {
         const attribute = Cauldron.getEffectAttributeFromIngredients(
           ingredients[0],
