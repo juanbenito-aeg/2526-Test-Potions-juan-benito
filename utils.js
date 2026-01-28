@@ -89,6 +89,13 @@ const getEssenceValueFrom = (ingredients) => {
   }
 };
 
+function capitalize(textToCapitalize) {
+  const capitalizedText =
+    textToCapitalize[0].toUpperCase() + textToCapitalize.slice(1);
+
+  return capitalizedText;
+}
+
 module.exports = {
   getEssenceValueFrom,
   Attributes,
@@ -96,4 +103,5 @@ module.exports = {
   Modifier,
   PotionType,
   getEffectTypeFromIngredient,
+  capitalize,
 };

@@ -1,7 +1,7 @@
 const { Cauldron } = require("../cauldron");
 const { Venom } = require("../venom");
 const { Potion } = require("../potion");
-const { PotionType } = require("../utils");
+const { PotionType, capitalize } = require("../utils");
 
 describe("Cuando los efectos de ingredientes asociados llevarán los nombres: “Setback", () => {
   describe("Cuando todos los ingredientes tienen el mismo atributo (INT, DEX…)", () => {
@@ -106,14 +106,11 @@ describe("Cuando los efectos de ingredientes asociados llevarán los nombres: �
       const potion = Cauldron.createPotion(ingredients);
 
       it("El nombre de la poción será: Attribute + venom", () => {
-        const attribute = Cauldron.getEffectAttributeFromIngredients(
-          ingredients[0],
+        const attribute = capitalize(
+          Cauldron.getEffectAttributeFromIngredients(ingredients[0]),
         );
 
-        const capitalizedAttribute =
-          attribute[0].toUpperCase() + attribute.substring(1);
-
-        expect(potion.name).toBe(`${capitalizedAttribute} venom`);
+        expect(potion.name).toBe(`${attribute} venom`);
       });
     });
 
@@ -175,17 +172,17 @@ describe("Cuando los efectos de ingredientes asociados llevarán los nombres: �
       const potion = Cauldron.createPotion(ingredients);
 
       it("El nombre de la poción será: Modifier + Attribute + venom. El modificador del nombre será el que corresponda con el modificador de ingrediente más pequeño.", () => {
-        const modifier = Potion.getModifier(
-          Potion.getNumIngredientsOfEachModifier(ingredients),
+        const modifier = capitalize(
+          Potion.getModifier(
+            Potion.getNumIngredientsOfEachModifier(ingredients),
+          ),
         );
-        const capitalizedModifier =
-          modifier[0].toUpperCase() + modifier.substring(1);
 
         const attribute = Cauldron.getEffectAttributeFromIngredients(
           ingredients[0],
         );
 
-        expect(potion.name).toBe(`${capitalizedModifier} ${attribute} venom`);
+        expect(potion.name).toBe(`${modifier} ${attribute} venom`);
       });
     });
   });
@@ -383,13 +380,13 @@ describe("Cuando los efectos de ingredientes asociados llevarán los nombres: Fr
       const potion = Cauldron.createPotion(ingredients);
 
       it("El nombre de la poción será: Modifier + frenzy + venom. El modificador del nombre será el que corresponda con el modificador de ingrediente más pequeño.", () => {
-        const modifier = Potion.getModifier(
-          Potion.getNumIngredientsOfEachModifier(ingredients),
+        const modifier = capitalize(
+          Potion.getModifier(
+            Potion.getNumIngredientsOfEachModifier(ingredients),
+          ),
         );
-        const capitalizedModifier =
-          modifier[0].toUpperCase() + modifier.substring(1);
 
-        expect(potion.name).toBe(`${capitalizedModifier} frenzy venom`);
+        expect(potion.name).toBe(`${modifier} frenzy venom`);
       });
     });
   });
